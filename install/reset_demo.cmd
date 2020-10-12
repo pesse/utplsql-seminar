@@ -1,0 +1,1 @@
+sql deathstar/deathstar@localhost:1523/XEPDB1 "@reset_demo.sql"
