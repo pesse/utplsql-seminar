@@ -12,7 +12,7 @@ create or replace package body group_util as
       return to_char(i_number) || case l_mod when 1 then 'st' when 2 then 'nd' when 3 then 'rd' else 'th' end;
     end;
 
-  function get_group_name( i_nr_in_group in positiven, i_type_label in nn_varchar2, i_honor_name in varchar2 )
+  function get_group_name( i_nr_in_group in positiven, i_type_label in nn_varchar2, i_honor_name in varchar2 default null )
     return varchar2 deterministic
   as
     begin
