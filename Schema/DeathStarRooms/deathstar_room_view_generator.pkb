@@ -15,7 +15,7 @@ create or replace package body deathstar_room_view_generator as
       select listagg(column_value, ',') within group (order by rownum)
         into l_room_ids_str
         from table(i_room_ids)
-        where rownum <= 1;
+      ;
 
       l_stmt := 'create view ' || dbms_assert.SIMPLE_SQL_NAME(i_view_name) || ' as
       select
