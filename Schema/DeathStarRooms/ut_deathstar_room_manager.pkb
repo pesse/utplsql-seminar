@@ -134,6 +134,27 @@ create or replace package body ut_deathstar_room_manager as
       .join_by('SECTION_ID,NR_IN_SECTION');
   end;
 
+  procedure compare_rooms_with_select_from_dual as
+    c_actual sys_refcursor;
+    c_expect sys_refcursor;
+  begin
+    open c_actual for
+      select name, code, section_id, nr_in_section
+        from deathstar_rooms
+        where section_id = id_section;
+
+    open c_expect for
+      select 'Vaders Chamber' name, 'VADERS1' code, id_section section_id, 1 nr_in_section from dual union all
+      select 'Vaders Chamber 2'   , 'VADERS2'     , id_section           , 2               from dual union all
+      select 'Bridge'             , 'BRIDGE1'     , id_section           , 3               from dual union all
+      select 'Storage Room'       , 'STORAG1'     , id_section           , 4               from dual union all
+      select 'Storage Room'       , 'STORAG2'     , id_section           , 5               from dual
+    ;
+
+    ut.expect(c_actual).to_equal(c_expect);
+
+  end;
+
 end;
 /
 

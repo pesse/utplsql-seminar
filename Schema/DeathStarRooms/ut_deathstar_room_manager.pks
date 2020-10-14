@@ -20,6 +20,9 @@ create or replace package ut_deathstar_room_manager as
 
     -- %test
     procedure compare_rooms_with_plsql_table;
+
+    -- %test
+    procedure compare_rooms_with_select_from_dual;
   -- %endcontext
 
 
