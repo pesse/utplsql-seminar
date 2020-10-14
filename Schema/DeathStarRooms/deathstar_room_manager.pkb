@@ -1,4 +1,12 @@
 create or replace package body deathstar_room_manager as
+
+
+  function get_room_code( i_name varchar2_nn ) return varchar2
+  as
+  begin
+    return upper(substr(i_name, 1, 6))||'1';
+  end;
+
   procedure add_room(
     i_name varchar2_nn,
     i_section_id simple_integer,
