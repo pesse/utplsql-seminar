@@ -82,15 +82,16 @@ end;
    but has to be called by its package-name.
    Beginning ":" means we search for a suitepath
  */
-call ut.run(':galaxy.ut_planet_setup');
+select * from table(ut.run(':galaxy.ut_planet_setup'));
 
 /* If we call it by package-name only, utPLSQL
    doesnt run the child suites
  */
-call ut.run('ut_planet_setup');
+select * from table(ut.run('ut_planet_setup'));
 
 /* But we can call it with either of the concrete
    test suites names
  */
-call ut.run('ut_planets');
-call ut.run('ut_garrisons');
+select * from table(ut.run('ut_planets'));
+
+select * from table(ut.run('ut_garrisons'));

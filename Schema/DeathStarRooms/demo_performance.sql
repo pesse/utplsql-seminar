@@ -30,6 +30,8 @@ end;
 
 select * from table(ut.run(':ut_deathstar'));
 
+select * from table(ut.run('ut_deathstar'));
+
 
 -- Use it for some heavy-lifting setup
 create or replace package ut_deathstar as
@@ -43,23 +45,26 @@ end;
 create or replace package body ut_deathstar as
   procedure setup_deathstar
   as
+    l_curtime timestamp := current_timestamp;
     begin
       dbms_output.put_line('Setting up the deathstar');
-      dbms_lock.SLEEP(3);
+      while current_timestamp-l_curtime < interval '3' second loop
+        null;
+      end loop;
     end;
 end;
 /
 
 -- Calling the whole suite-hierarchy
-call ut.run(':ut_deathstar');
+select * from table(ut.run(':ut_deathstar'));
 
 
 -- It also works when only running a part of the suite-path
-call ut.run(':ut_deathstar.rooms');
+select * from table(ut.run(':ut_deathstar.rooms'));
 
 
 -- It also works when calling a suite directly
-call ut.run('ut_deathstar_friend_or_foe');
+select * from table(ut.run('ut_deathstar_friend_or_foe'));
 
 -- Moar storytelling with Nested contexts
 -- Let's get rid of that parent suite so we don't have to deal
@@ -105,8 +110,11 @@ end;
 create or replace package body ut_defeat_rebels as
   procedure defeat_them
   as
+    l_curtime timestamp := current_timestamp;
     begin
-      dbms_lock.sleep(5);
+      while current_timestamp-l_curtime < interval '5' second loop
+        null;
+      end loop;
     end;
 
   procedure boast
@@ -118,15 +126,15 @@ end;
 /
 
 -- Run a specific tag
-call ut.run('', a_tags=>'quick');
+select * from table(ut.run('', a_tags=>'quick'));
 
 
 -- Run all with any of the given tags
-call ut.run('', a_tags=>'quick,long_running');
+select * from table(ut.run('', a_tags=>'quick,long_running'));
 
 
 -- Run all except a tag
-call ut.run('', a_tags=>'long_running,-very_long_running');
+select * from table(ut.run('', a_tags=>'-very_long_running'));
 
 
 
