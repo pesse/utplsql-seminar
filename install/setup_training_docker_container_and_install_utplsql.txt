@@ -1,0 +1,23 @@
+# Download and create docker container
+docker run -d -p 1521:1521 -e ORACLE_PASSWORD=<your password> --name deathstar gvenzl/oracle-xe
+
+# Install git in the container
+docker exec -it -u root deathstar bash
+
+microdnf update
+microdnf install git
+
+exit
+
+# Clone latest utPLSQL release
+docker exec -it -u oracle deathstar bash
+
+git clone --depth 1 https://github.com/utPLSQL/utPLSQL.git
+cd utPLSQL
+git fetch --depth 1 origin tag v3.1.14 && git checkout v3.1.14
+
+# Install utPLSQL headless
+cd source
+sqlplus / as sysdba @install_headless.sql
+
+exit
