@@ -120,4 +120,6 @@ end;
 
 call ut.run('ut_deathstar_security_welcome');
 
+select * from deathstar_protocol_active;
+select * from deathstar_protocols;
 

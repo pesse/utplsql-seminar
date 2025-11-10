@@ -84,3 +84,6 @@ begin ut.run('ut_deathstar_friend_or_foe'); end;
 /
 
 select * from ut.run('ut_deathstar_friend_or_foe');
+
+
+select * from ut_runner.get_suites_info()-- where item_type = 'UT_SUITE';
